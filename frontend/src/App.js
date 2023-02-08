@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import AccountingDashboard from "./Pages/AccountingDashboard";
+import Dashboard from "./Pages/Dashboard";
 import Login from "./Pages/Login";
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
-  const [loggedIn, setLoggedInStatus] = useState(false);
+ 
 
   useEffect(() => {
     const windowResizeEvent = () => {
@@ -22,16 +24,16 @@ function App() {
     };
   }, []);
 
-  return <div style={{ width: windowWidth, height: windowHeight }}>
+  return <BrowserRouter> <div style={{ width: windowWidth, height: windowHeight }}>
+<Routes>
+
+ <Route path="/" element={<Login/>} />  
+
+ <Route path="/dashboard/:sublink" element={<Dashboard/>} />
 
 
- {!loggedIn && <Login login={()=>{setLoggedInStatus(true)}}/> }
-
-{loggedIn && <AccountingDashboard />}
-
-
-
-  </div>;
+</Routes>
+  </div></BrowserRouter>;
 }
 
 export default App;

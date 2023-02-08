@@ -1,4 +1,4 @@
-import LoginCard from "../Components/LoginCard";
+import DepartmentCard from "../Components/Login/DepartmentCard";
 
 import {AiFillAccountBook, AiOutlineStock} from 'react-icons/ai';
 
@@ -25,13 +25,13 @@ return (<div id="loginContainer">
 <div className="w3-display-middle" style={{display:"flex", flexDirection:'row' }}>
 
 <div style={styles}>
-<LoginCard login={props.login} department="Accounting"> <AiFillAccountBook size={150}/>  </LoginCard>
-<LoginCard login={props.login} department="Marketing"><AiOutlineStock size={150}/></LoginCard>
+<DepartmentCard  department="Accounting"> <AiFillAccountBook size={150}/>  </DepartmentCard>
+<DepartmentCard  department="Marketing"><AiOutlineStock size={150}/></DepartmentCard>
 </div>
 
 <div style={styles}>
-<LoginCard login={props.login} department="Admin"><RiAdminLine size={150} /></LoginCard>
-<LoginCard  login={props.login} department="Human Resources"> <GiHumanPyramid size={150} /></LoginCard>
+<DepartmentCard department="Admin"><RiAdminLine size={150} /></DepartmentCard>
+<DepartmentCard   department="Human Resources"> <GiHumanPyramid size={150} /></DepartmentCard>
 </div>
 </div></div>);
 }

@@ -3,15 +3,20 @@ import { useState } from "react";
 import useMediaQuery from "use-mediaquery";
 import LoginDepartment from "./LoginDepartment";
 import  ReactDOM  from "react-dom";
+import { useDispatch } from "react-redux";
+import { setDepartmentName } from "../../utils/Store";
 
-const LoginCard = (props) => {
+const DepartmentCard = (props) => {
 
     const isPc = useMediaQuery("(min-width:700px)");
 
     const [loginDepartmentVisiblity, setLoginDepartmentVisibility] = useState(false);
 
+    const departmentDispatcher = useDispatch();
 
     const toggleLoginDepartmentVisibility = ()=>{
+
+departmentDispatcher(setDepartmentName(props.department))
 
         setLoginDepartmentVisibility(prev=> !prev);
     }
@@ -40,4 +45,4 @@ const LoginCard = (props) => {
   );
 };
 
-export default LoginCard;
+export default DepartmentCard;

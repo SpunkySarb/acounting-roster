@@ -12,6 +12,7 @@ body {
   
 #loginDepartment{
   background: linear-gradient(180deg, #2137FF 0%, #00C950 100%);
+  overflow: hidden;
 
 }
 
