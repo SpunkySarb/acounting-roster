@@ -34,6 +34,7 @@ const LoginDepartment = (props) => {
   };
 
   useEffect(() => {
+    
     const windowResizeEvent = () => {
       setWindowHeight(window.innerHeight);
       setWindowWidth(window.innerWidth);
@@ -101,7 +102,7 @@ const LoginDepartment = (props) => {
             className="w3-input w3-large w3-center  w3-margin-top"
             placeholder="Password"
           />
-          <NavLink to={'/dashboard/payouts'}
+          <NavLink to={`/dashboard/${props.department}`}
             
             style={{ width: "300px", alignSelf: "center" }}
             className="w3-button  w3-large w3-black w3-round-large w3-margin-top"
