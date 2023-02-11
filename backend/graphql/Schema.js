@@ -1,9 +1,16 @@
-
-
-const Schema =  `
+const Schema = `
 
 type paymentInfo {
     value:Boolean
+}
+
+
+type deleteStatus {
+    value:Boolean
+}
+
+type editStatus {
+    errorValue:Boolean
 }
 
 type ArtistData {
@@ -13,6 +20,8 @@ type ArtistData {
     streams:Int
     avgpayout:Int
     status:Boolean
+    errorMessage:String
+    errorStatus:Boolean
     
 
 }
@@ -27,17 +36,37 @@ input artistInput{
     rate:Float
 }
 
+input fetchPaymentStatusInput {
+    id:ID!
+}
 
 type Query {
 
     getData: [ArtistData]
+    getPaymentStatus(paymentId:fetchPaymentStatusInput):paymentInfo
 }
+
+input deleteInput{
+    id:ID!
+}
+
+input editArtistInput {
+    id:ID!
+    artist:String
+    rate:Float
+}
+
+
 
 type Mutation {
 
     updatePaymentStatus(paymentData:paymentStatus): paymentInfo
 
-    addArtist(artistInfo:artistInput):ArtistData!
+    addArtist(artistInfo:artistInput):ArtistData
+
+    deleteArtist(artistId:deleteInput):deleteStatus
+
+    editArtist(artistData:editArtistInput): editStatus
 
 
 }
@@ -46,6 +75,5 @@ type Mutation {
 
 
 `;
-
 
 module.exports = Schema;

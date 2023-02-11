@@ -2,8 +2,15 @@ const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const ArtistsData = require("./Models/ArtistsData");
 const givenData = require("./Files/data.json");
-const { getData, updatePaymentStatus, addArtist } = require("./graphql/Resolver");
-const { buildSchema } = require("graphql");
+const {
+  getData,
+  updatePaymentStatus,
+  addArtist,
+  deleteArtist,
+  editArtist,
+  getPaymentStatus,
+} = require("./graphql/Resolver");
+
 const Schema = require("./graphql/Schema");
 
 /**
@@ -30,19 +37,19 @@ ArtistsData.sync()
     console.log(err.message);
   });
 
-
 const typeDefs = Schema;
-
-
 
 const resolvers = {
   Query: {
     getData: getData,
+    getPaymentStatus: getPaymentStatus,
   },
   Mutation: {
     updatePaymentStatus: updatePaymentStatus,
-    addArtist:addArtist
-  }
+    addArtist: addArtist,
+    deleteArtist: deleteArtist,
+    editArtist: editArtist,
+  },
 };
 
 const server = new ApolloServer({ typeDefs, resolvers });

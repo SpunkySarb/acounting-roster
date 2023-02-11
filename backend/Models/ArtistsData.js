@@ -23,11 +23,11 @@ const ArtistsData = sequelize.define("ArtistsData", {
     allowNull: false,
     defaultValue: 0,
   },
-  status:{
-    type:DataTypes.BOOLEAN,
-    allowNull:false,
-    defaultValue:false
-  }
+  status: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
 });
 
 module.exports = ArtistsData;

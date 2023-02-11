@@ -28,7 +28,7 @@ return (<div
       marginRight:10,padding:5
     }}
   >
-    {props.artist.split(" ").map((i,index) => {if(index<2) return (i + "").charAt(0)})}
+    {props.artist.split(" ").map((i,index) => {if(index<2) return (i + "").charAt(0).toUpperCase()})}
   </div>);
 }
 
