@@ -45,7 +45,7 @@ const Login = (props) => {
             <RiAdminLine size={150} />
           </DepartmentCard>
           <DepartmentCard department="Human Resources">
-            {" "}
+           
             <GiHumanPyramid size={150} />
           </DepartmentCard>
         </div>
