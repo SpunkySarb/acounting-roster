@@ -1,35 +1,18 @@
 import { TbFidgetSpinner } from "react-icons/tb";
 
- 
-
 import { BiErrorAlt } from "react-icons/bi";
 import ListItem from "./ListItem";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 const List = (props) => {
- 
-
-  
-
-  
-
-  const {loading, listData, error, showData, newList } = props;
-
+  const { loading, listData, error, showData, newList } = props;
 
   const [data, updateData] = useState([]);
-const [newData, updateNewData] = useState([]);
+  const [newData, updateNewData] = useState([]);
 
-  
-
-useEffect(()=>{
-
-  updateData(listData);
-  updateNewData(newList);
-
-
-},[listData, newList]);
-
-
- 
+  useEffect(() => {
+    updateData(listData);
+    updateNewData(newList);
+  }, [listData, newList]);
 
   return (
     <>
@@ -86,16 +69,8 @@ useEffect(()=>{
             <th className="w3-center">ACTIONS</th>
             <th className="w3-center">PAYMENT STATUS</th>
           </tr>
-          {!loading &&
-            showData &&
-           newData.map((i) => (
-              <ListItem data={i}/>
-            ))}
-          {!loading &&
-            showData &&
-            data.map((i) => (
-              <ListItem data={i}/>
-            ))}
+          {!loading && showData && newData.map((i) => <ListItem data={i} />)}
+          {!loading && showData && data.map((i) => <ListItem data={i} />)}
         </table>
       )}
     </>

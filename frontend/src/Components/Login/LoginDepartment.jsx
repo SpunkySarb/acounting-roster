@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { Suspense, useEffect, useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
-
+import { motion } from "framer-motion";
 import useMediaQuery from "use-mediaquery";
 
 import Object from "../3DComponents/Object";
@@ -12,11 +12,6 @@ import Object from "../3DComponents/Object";
 const LoginDepartment = (props) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-
-
-
-  
-
 
   const [status, setStatus] = useState("w3-show");
   const isPc = useMediaQuery("(min-width:700px)");
@@ -34,7 +29,6 @@ const LoginDepartment = (props) => {
   };
 
   useEffect(() => {
-    
     const windowResizeEvent = () => {
       setWindowHeight(window.innerHeight);
       setWindowWidth(window.innerWidth);
@@ -102,8 +96,8 @@ const LoginDepartment = (props) => {
             className="w3-input w3-large w3-center  w3-margin-top"
             placeholder="Password"
           />
-          <NavLink to={`/dashboard/${props.department}`}
-            
+          <NavLink
+            to={`/dashboard/${props.department}`}
             style={{ width: "300px", alignSelf: "center" }}
             className="w3-button  w3-large w3-black w3-round-large w3-margin-top"
           >
@@ -113,7 +107,6 @@ const LoginDepartment = (props) => {
 
         {isPc && (
           <Suspense fallback={<></>}>
-            {" "}
             <Canvas>
               <PerspectiveCamera makeDefault position={[0, 10, 50]} />
               <OrbitControls enableZoom={false} />
@@ -121,7 +114,7 @@ const LoginDepartment = (props) => {
               <Object />
 
               <ambientLight args={["white", 0.2]} />
-              <pointLight args={["white", 1]} position={[0, 5, 10]} />
+              <pointLight args={["white", 1]} position={[0, 5, 15]} />
             </Canvas>
           </Suspense>
         )}
