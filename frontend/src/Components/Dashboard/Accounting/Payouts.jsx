@@ -42,9 +42,9 @@ const Payouts = () => {
     }
   };
 
-  const addNewArtist = () => {
-    const artist = artistRef.current.value;
-    const rate = rateRef.current.value;
+  const addNewArtist = async (artist, rate) => {
+    
+    let status = false;
 
     if (artist.trim() === "") {
       setArtistBorder(3);
@@ -54,19 +54,29 @@ const Payouts = () => {
       setArtistBorder(0);
       setRateBorder(0);
 
-      addArtist({
+    await addArtist({
         variables: { artistInfo: { artist: artist, rate: parseFloat(rate) } },
       })
         .then((artist) => {
           updateNewList((prev) => [artist.data.addArtist, ...prev]);
-
-          artistRef.current.value = "";
-          rateRef.current.value = 0.0;
+          status= true;
+          if(!!artistRef.current && !!rateRef.current){
+            artistRef.current.value = "";
+            rateRef.current.value = 0.0;
+  
+          }
+          
+         
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log('caught error ', err.message)
           setArtistExistError(true);
+          status= false;
         });
     }
+ 
+    return status;
+ 
   };
 
   const searchList = (text) => {
@@ -102,7 +112,8 @@ const Payouts = () => {
       error={error}
       showData={showData}
       newList={newList}
-      searchList={searchList} />
+      searchList={searchList}
+      addNewArtist={addNewArtist} />
     );
   }
 
@@ -181,7 +192,7 @@ const Payouts = () => {
               />
 
               <motion.div
-                onClick={addNewArtist}
+                onClick={()=>{addNewArtist(artistRef.current.value, rateRef.current.value);}}
                 whileHover={{ scale: 1.1 }}
                 style={{ fontFamily: "Carter One" }}
                 className="w3-button w3-cyan w3-round-xlarge w3-card-4"

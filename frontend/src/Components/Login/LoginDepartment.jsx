@@ -14,7 +14,7 @@ const LoginDepartment = (props) => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
   const [status, setStatus] = useState("w3-show");
-  const isPc = useMediaQuery("(min-width:700px)");
+  const isPc = useMediaQuery("(min-width:800px)");
   const backButtonHandler = () => {
     gsap.to(document.getElementById("loginDepartment").style, {
       opacity: 0,

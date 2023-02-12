@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { setDepartmentName } from "../../utils/Store";
 import { motion } from "framer-motion";
 const DepartmentCard = (props) => {
-  const isPc = useMediaQuery("(min-width:700px)");
+  const isPc = useMediaQuery("(min-width:800px)");
 
   const [loginDepartmentVisiblity, setLoginDepartmentVisibility] =
     useState(false);
