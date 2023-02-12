@@ -69,7 +69,7 @@ const Payouts = () => {
          
         })
         .catch((err) => {
-          console.log('caught error ', err.message)
+          
           setArtistExistError(true);
           status= false;
         });
@@ -141,7 +141,7 @@ const Payouts = () => {
       >
         <div
           className="w3-border w3-round-xxlarge"
-          style={{ width: "90%", borderWidth: "3px", height: "100%" }}
+          style={{ width: "90%", borderWidth: "3px", height: "80%" }}
         >
           <div
             className=""
