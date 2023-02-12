@@ -69,8 +69,8 @@ const List = (props) => {
             <th className="w3-center">ACTIONS</th>
             <th className="w3-center">PAYMENT STATUS</th>
           </tr>
-          {!loading && showData && newData.map((i) => <ListItem data={i} />)}
-          {!loading && showData && data.map((i) => <ListItem data={i} />)}
+          {!loading && showData && newData.map((i) => <ListItem key={i.id} data={i} />)}
+          {!loading && showData && data.map((i) => <ListItem key={i.id} data={i} />)}
         </table>
       )}
     </>

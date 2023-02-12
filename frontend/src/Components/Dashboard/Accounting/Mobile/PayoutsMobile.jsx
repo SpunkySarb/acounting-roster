@@ -196,10 +196,10 @@ const PayoutsMobile = (props) => {
           >
             {!loading &&
               showData &&
-              newData.map((i) => <ListItemMobile data={i} />)}
+              newData.map((i) => <ListItemMobile key={i.id} data={i} />)}
             {!loading &&
               showData &&
-              data.map((i) => <ListItemMobile data={i} />)}
+              data.map((i) => <ListItemMobile key={i.id} data={i} />)}
           </div>
         )}
         {!addNewArtistActive && (
