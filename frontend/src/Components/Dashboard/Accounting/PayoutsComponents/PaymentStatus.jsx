@@ -27,9 +27,15 @@ const PaymentStatus = (props) => {
         } catch (err) {}
       })
       .catch(console.error());
-if(data!==undefined){
-  setPaymentStatus(data.getPaymentStatus.value);
-}
+
+      try{
+        if(data!==undefined){
+          setPaymentStatus(data.getPaymentStatus.value);
+        }
+      }catch(err){
+
+      }
+
     
   }, [loading]);
 
