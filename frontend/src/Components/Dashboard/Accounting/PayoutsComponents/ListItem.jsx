@@ -78,6 +78,7 @@ const ListItem = (props) => {
           setNameErrorBorder(2);
         } else {
           setEditingStatus(false);
+          
         }
       })
       .catch(() => {});

@@ -21,6 +21,7 @@ const Payouts = () => {
   const [artistExistsError, setArtistExistError] = useState(false);
 
   const [filteredList, updateFilteredList] = useState([]);
+  const [filteredNewList, updateFilteredNewList] = useState([]);
 
   const isPc = useMediaQuery("(min-width:800px)");
   const isTablet = !useMediaQuery("(min-width:1000px)");
@@ -59,6 +60,7 @@ const Payouts = () => {
       })
         .then((artist) => {
           updateNewList((prev) => [artist.data.addArtist, ...prev]);
+          updateFilteredNewList((prev) => [artist.data.addArtist, ...prev]);
           status= true;
           if(!!artistRef.current && !!rateRef.current){
             artistRef.current.value = "";
@@ -88,12 +90,31 @@ const Payouts = () => {
           .includes((text + "").toLowerCase().trim());
       })
     );
+
+    updateFilteredNewList(
+      newList.filter((i) => {
+        return (i.artist + "")
+          .trim()
+          .toLowerCase()
+          .includes((text + "").toLowerCase().trim());
+      })
+    );
   };
+
+
+
+  
+
+
+
+
+
 
   useEffect(() => {
     if (!loading) {
       updateList(data.getData);
       updateFilteredList(data.getData);
+      
     }
 
     refetch()
@@ -219,7 +240,7 @@ const Payouts = () => {
               listData={filteredList}
               error={error}
               showData={showData}
-              newList={newList}
+              newList={filteredNewList}
             />
           </div>
         </div>
