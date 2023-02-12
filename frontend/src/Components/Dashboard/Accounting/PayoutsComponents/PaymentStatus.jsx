@@ -6,12 +6,13 @@ import Paid from "./Badges/Paid";
 import React from "react";
 
 import { FaSpinner } from "react-icons/fa";
+import useMediaQuery from "use-mediaquery";
 
 const PaymentStatus = (props) => {
   const { loading, error, data, refetch } = useQuery(GET_PAYMENT_STATUS, {
     variables: { paymentId: { id: props.id } },
   });
-
+  const isPc = useMediaQuery("(min-width:800px)");
   const [paymentStatus, setPaymentStatus] = useState(props.status);
 
   const id = props.id;
@@ -33,10 +34,10 @@ if(data!==undefined){
   }, [loading]);
 
   if (loading && !isLoaded) {
-    return (
+    return (<>{isPc?
       <div className="w3-spin">
         <FaSpinner color="white" />
-      </div>
+      </div>:<div>loading..</div>}</>
     );
   }
 

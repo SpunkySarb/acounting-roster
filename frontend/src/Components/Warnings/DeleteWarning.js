@@ -1,13 +1,14 @@
 import { animate, motion, useMotionValue } from "framer-motion";
 import { useEffect } from "react";
+import useMediaQuery from "use-mediaquery";
 
 const DeleteWarning = (props) => {
   const { id, artist } = props;
-
+  const isPc = useMediaQuery("(min-width:800px)");
   const scale = useMotionValue(0);
 
   useEffect(() => {
-    animate(scale, 1);
+    animate(scale, isPc?1:0.7);
   });
 
   return (

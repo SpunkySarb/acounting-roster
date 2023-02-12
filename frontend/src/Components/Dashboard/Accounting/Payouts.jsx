@@ -7,6 +7,7 @@ import { ADD_ARTIST } from "../../../graphql/Mutations";
 import ArtistExists from "../../Errors/ArtistExists";
 import ReactDOM from "react-dom";
 import useMediaQuery from "use-mediaquery";
+import PayoutsMobile from "./Mobile/PayoutsMobile";
 const Payouts = () => {
   const { loading, data, error, refetch } = useQuery(GET_DATA);
   const [showData, setDataVisibility] = useState(false);
@@ -21,7 +22,8 @@ const Payouts = () => {
 
   const [filteredList, updateFilteredList] = useState([]);
 
-  const isPc = useMediaQuery("(min-width:700px)");
+  const isPc = useMediaQuery("(min-width:800px)");
+  const isTablet = !useMediaQuery("(min-width:1000px)");
 
   const artistRef = useRef();
   const rateRef = useRef();
@@ -95,24 +97,12 @@ const Payouts = () => {
 
   if (!isPc) {
     return (
-      <div
-        style={{
-          width: window.innerWidth,
-          height: window.innerHeight,
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "row",
-          alignItems: "center",
-          fontFamily: "Carter One",
-          fontSize: 20,
-          padding: 30,
-        }}
-      >
-        This is a commercial web application, meant to be used by few employees
-        and is not made for mobile view. <br />
-        <br />
-        Please Switch to wider view.
-      </div>
+      <PayoutsMobile loading={loading}
+      listData={filteredList}
+      error={error}
+      showData={showData}
+      newList={newList}
+      searchList={searchList} />
     );
   }
 
@@ -140,7 +130,7 @@ const Payouts = () => {
       >
         <div
           className="w3-border w3-round-xxlarge"
-          style={{ width: "90%", borderWidth: "3px", height: "80%" }}
+          style={{ width: "90%", borderWidth: "3px", height: "100%" }}
         >
           <div
             className=""
@@ -155,14 +145,14 @@ const Payouts = () => {
           >
             <motion.input
               whileHover={{ scale: 1.02 }}
-              style={{ maxWidth: "300px" }}
+              style={{ maxWidth: "250px" }}
               onChange={(e) => {
                 searchList(e.target.value);
               }}
               className="w3-input w3-padding w3-border w3-card-4 w3-border-xxlarge w3-round-xlarge"
               placeholder="Search Artist"
             />
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <div style={{ display: "flex", flexDirection: "row", marginLeft:10 }}>
               <motion.input
                 ref={artistRef}
                 onChange={validateNewArtist}
@@ -179,7 +169,7 @@ const Payouts = () => {
                 type="number"
                 step={0.005}
                 min={0}
-                defaultValue={0.0}
+                
                 onChange={validateNewArtist}
                 whileHover={{ scale: 1.02 }}
                 style={{
@@ -196,7 +186,7 @@ const Payouts = () => {
                 style={{ fontFamily: "Carter One" }}
                 className="w3-button w3-cyan w3-round-xlarge w3-card-4"
               >
-                Add New Artist
+                {isTablet ? 'Add': 'Add New Artist'}
               </motion.div>
             </div>
           </div>
