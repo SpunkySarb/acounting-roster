@@ -43,7 +43,7 @@ input fetchPaymentStatusInput {
 type Query {
 
     getData: [ArtistData]
-    getPaymentStatus(paymentId:fetchPaymentStatusInput):paymentInfo
+    
 }
 
 input deleteInput{

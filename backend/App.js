@@ -42,7 +42,7 @@ const typeDefs = Schema;
 const resolvers = {
   Query: {
     getData: getData,
-    getPaymentStatus: getPaymentStatus,
+  
   },
   Mutation: {
     updatePaymentStatus: updatePaymentStatus,

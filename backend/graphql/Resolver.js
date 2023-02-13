@@ -132,19 +132,4 @@ exports.editArtist = async (_, args) => {
   return status;
 };
 
-exports.getPaymentStatus = async (_, args) => {
-  let status;
 
-  await ArtistsData.findOne({
-    attributes: ["status"],
-    where: { id: args.paymentId.id },
-  })
-    .then((data) => {
-      status = { value: data.dataValues.status };
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-
-  return status;
-};
