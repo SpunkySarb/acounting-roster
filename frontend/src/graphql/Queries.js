@@ -13,10 +13,3 @@ export const GET_DATA = gql`
   }
 `;
 
-export const GET_PAYMENT_STATUS = gql`
-  query GetPaymentStatus($paymentId: fetchPaymentStatusInput) {
-    getPaymentStatus(paymentId: $paymentId) {
-      value
-    }
-  }
-`;

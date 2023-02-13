@@ -4,6 +4,7 @@ import { TbFidgetSpinner } from "react-icons/tb";
 import ArtistExists from "../../../Errors/ArtistExists";
 import ReactDOM from "react-dom";
 import ListItemMobile from "./ListItemMobile";
+import React from 'react';
 
 const PayoutsMobile = (props) => {
   const { loading, listData, error, showData, newList } = props;
@@ -196,10 +197,10 @@ const PayoutsMobile = (props) => {
           >
             {!loading &&
               showData &&
-              newData.map((i) => <ListItemMobile key={i.id} data={i} />)}
+              newData.map((i) => <ListItemMobile editList={props.editList} key={i.id} data={i} />)}
             {!loading &&
               showData &&
-              data.map((i) => <ListItemMobile key={i.id} data={i} />)}
+              data.map((i) => <ListItemMobile  editList={props.editList} key={i.id} data={i} />)}
           </div>
         )}
         {!addNewArtistActive && (
@@ -224,4 +225,4 @@ const PayoutsMobile = (props) => {
   );
 };
 
-export default PayoutsMobile;
+export default React.memo(PayoutsMobile);

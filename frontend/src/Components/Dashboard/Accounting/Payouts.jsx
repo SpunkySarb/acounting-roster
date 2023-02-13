@@ -2,7 +2,7 @@ import List from "./PayoutsComponents/List";
 import { motion } from "framer-motion";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_DATA } from "../../../graphql/Queries";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ADD_ARTIST } from "../../../graphql/Mutations";
 import ArtistExists from "../../Errors/ArtistExists";
 import ReactDOM from "react-dom";
@@ -14,6 +14,8 @@ const Payouts = () => {
   const [listData, updateList] = useState([]);
   const [newList, updateNewList] = useState([]);
 
+  const searchRef = useRef();
+
   const [artistBorder, setArtistBorder] = useState(0);
   const [rateBorder, setRateBorder] = useState(0);
   const [addArtist] = useMutation(ADD_ARTIST);
@@ -22,7 +24,7 @@ const Payouts = () => {
 
   const [filteredList, updateFilteredList] = useState([]);
   const [filteredNewList, updateFilteredNewList] = useState([]);
-
+  const [searchString, updateSearchString] = useState("");
   const isPc = useMediaQuery("(min-width:800px)");
   const isTablet = !useMediaQuery("(min-width:1000px)");
 
@@ -44,7 +46,6 @@ const Payouts = () => {
   };
 
   const addNewArtist = async (artist, rate) => {
-    
     let status = false;
 
     if (artist.trim() === "") {
@@ -55,33 +56,30 @@ const Payouts = () => {
       setArtistBorder(0);
       setRateBorder(0);
 
-    await addArtist({
+      await addArtist({
         variables: { artistInfo: { artist: artist, rate: parseFloat(rate) } },
       })
         .then((artist) => {
           updateNewList((prev) => [artist.data.addArtist, ...prev]);
           updateFilteredNewList((prev) => [artist.data.addArtist, ...prev]);
-          status= true;
-          if(!!artistRef.current && !!rateRef.current){
+          status = true;
+          if (!!artistRef.current && !!rateRef.current) {
             artistRef.current.value = "";
             rateRef.current.value = 0.0;
-  
           }
-          
-         
         })
         .catch((err) => {
-          
           setArtistExistError(true);
-          status= false;
+          status = false;
         });
     }
- 
+
     return status;
- 
   };
 
   const searchList = (text) => {
+    updateSearchString(text);
+
     updateFilteredList(
       listData.filter((i) => {
         return (i.artist + "")
@@ -101,20 +99,33 @@ const Payouts = () => {
     );
   };
 
+  const editList = useCallback(
+    (id, artist, streams, rate, avgpayout, status) => {
+      const updatedList = listData.map((i) => {
+        if (i.id === id) {
+          return { id, artist, streams, rate, avgpayout, status };
+        } else {
+          return i;
+        }
+      });
+      const updatedNewList = newList.map((i) => {
+        if (i.id === id) {
+          return { id, artist, streams, rate, avgpayout, status };
+        } else {
+          return i;
+        }
+      });
 
-
-  
-
-
-
-
-
+      updateList(updatedList);
+      updateNewList(updatedNewList);
+    },
+    [listData, newList]
+  );
 
   useEffect(() => {
     if (!loading) {
       updateList(data.getData);
       updateFilteredList(data.getData);
-      
     }
 
     refetch()
@@ -128,13 +139,16 @@ const Payouts = () => {
 
   if (!isPc) {
     return (
-      <PayoutsMobile loading={loading}
-      listData={filteredList}
-      error={error}
-      showData={showData}
-      newList={newList}
-      searchList={searchList}
-      addNewArtist={addNewArtist} />
+      <PayoutsMobile
+        loading={loading}
+        listData={filteredList}
+        error={error}
+        showData={showData}
+        newList={filteredNewList}
+        searchList={searchList}
+        editList={editList}
+        addNewArtist={addNewArtist}
+      />
     );
   }
 
@@ -176,15 +190,19 @@ const Payouts = () => {
             }}
           >
             <motion.input
+              defaultValue={searchString}
               whileHover={{ scale: 1.02 }}
               style={{ maxWidth: "250px" }}
               onChange={(e) => {
                 searchList(e.target.value);
+                updateSearchString(e.target.value);
               }}
               className="w3-input w3-padding w3-border w3-card-4 w3-border-xxlarge w3-round-xlarge"
               placeholder="Search Artist"
             />
-            <div style={{ display: "flex", flexDirection: "row", marginLeft:10 }}>
+            <div
+              style={{ display: "flex", flexDirection: "row", marginLeft: 10 }}
+            >
               <motion.input
                 ref={artistRef}
                 onChange={validateNewArtist}
@@ -201,7 +219,6 @@ const Payouts = () => {
                 type="number"
                 step={0.005}
                 min={0}
-                
                 onChange={validateNewArtist}
                 whileHover={{ scale: 1.02 }}
                 style={{
@@ -213,12 +230,14 @@ const Payouts = () => {
               />
 
               <motion.div
-                onClick={()=>{addNewArtist(artistRef.current.value, rateRef.current.value);}}
+                onClick={() => {
+                  addNewArtist(artistRef.current.value, rateRef.current.value);
+                }}
                 whileHover={{ scale: 1.1 }}
                 style={{ fontFamily: "Carter One" }}
                 className="w3-button w3-cyan w3-round-xlarge w3-card-4"
               >
-                {isTablet ? 'Add': 'Add New Artist'}
+                {isTablet ? "Add" : "Add New Artist"}
               </motion.div>
             </div>
           </div>
@@ -241,6 +260,7 @@ const Payouts = () => {
               error={error}
               showData={showData}
               newList={filteredNewList}
+              editList={editList}
             />
           </div>
         </div>

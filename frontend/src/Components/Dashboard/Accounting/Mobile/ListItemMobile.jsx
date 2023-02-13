@@ -79,10 +79,22 @@ const ListItemMobile = (props) => {
           setNameErrorBorder(2);
         } else {
           setEditingStatus(false);
+          props.editList(i.id, artistName, i.streams, parseFloat(currentRate), currentAvg, i.status);
         }
       })
       .catch(() => {});
   };
+
+
+const updatePaymentStatus = (status)=>{
+
+  props.editList(i.id, i.artist, i.streams, i.rate, i.avgpayout, status);
+
+}
+
+
+
+
 
   useEffect(() => {
     updateArtistName(i.artist);
@@ -170,7 +182,7 @@ const ListItemMobile = (props) => {
           <tr className="w3-border-bottom">
             <td>Status</td>
             <td style={{ textAlign: "right", paddingLeft: 50 }}>
-              <PaymentStatus id={i.id} />
+              <PaymentStatus id={i.id} status={i.status} updatePaymentStatus={updatePaymentStatus} />
             </td>
           </tr>
           <tr>

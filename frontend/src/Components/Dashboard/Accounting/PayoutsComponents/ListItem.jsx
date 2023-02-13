@@ -64,6 +64,9 @@ const ListItem = (props) => {
   };
 
   const saveEdited = () => {
+
+
+
     editArtist({
       variables: {
         artistData: {
@@ -78,11 +81,19 @@ const ListItem = (props) => {
           setNameErrorBorder(2);
         } else {
           setEditingStatus(false);
+          props.editList(i.id, artistName, i.streams, parseFloat(currentRate), currentAvg, i.status);
           
         }
       })
       .catch(() => {});
   };
+
+  const updatePaymentStatus = (status)=>{
+
+    props.editList(i.id, i.artist, i.streams, i.rate, i.avgpayout, status);
+  
+  }
+  
 
   useEffect(() => {
     updateArtistName(i.artist);
@@ -276,7 +287,7 @@ const ListItem = (props) => {
                 marginTop: 10,
               }}
             >
-              <PaymentStatus id={i.id} status={i.status} />
+              <PaymentStatus id={i.id}  updatePaymentStatus={updatePaymentStatus}  status={i.status} />
             </div>
           </td>
         </motion.tr>
