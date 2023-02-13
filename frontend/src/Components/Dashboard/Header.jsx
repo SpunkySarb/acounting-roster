@@ -1,6 +1,5 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, NavLink, useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavLink, useParams } from "react-router-dom";
 
 import useMediaQuery from "use-mediaquery";
 import { setLoginStatus } from "../../utils/Store";

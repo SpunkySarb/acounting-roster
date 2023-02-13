@@ -14,7 +14,7 @@ const Payouts = () => {
   const [listData, updateList] = useState([]);
   const [newList, updateNewList] = useState([]);
 
-  const searchRef = useRef();
+  
 
   const [artistBorder, setArtistBorder] = useState(0);
   const [rateBorder, setRateBorder] = useState(0);
@@ -123,13 +123,13 @@ const Payouts = () => {
   );
 
   useEffect(() => {
-    if (!loading) {
-      updateList(data.getData);
-      updateFilteredList(data.getData);
-    }
+   
 
     refetch()
-      .then(() => {
+      .then((data) => {
+      
+        updateList(data.data.getData);
+      updateFilteredList(data.data.getData);
         setDataVisibility(true);
       })
       .catch((err) => {
